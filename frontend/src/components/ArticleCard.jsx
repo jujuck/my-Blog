@@ -10,8 +10,8 @@ function ArticleCard({ article }) {
         <h2 className="text-center">{article.title}</h2>
         <div className="p-2">
           <img
-            src={article.image.src}
-            alt={article.image.alt}
+            src={article.src}
+            alt={article.alt}
             className="w-100 rounded-1"
           />
         </div>

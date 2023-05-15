@@ -1,9 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
-import articles from "@assets/data.json";
+import connexion from "@services/connexion";
 import ArticleCard from "@components/ArticleCard";
 
 function Articles() {
+  const [articles, setArticles] = useState([]);
+
+  const getArticles = async () => {
+    const articlesData = await connexion.get("/articles");
+    try {
+      if (articlesData) {
+        setArticles(articlesData);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getArticles();
+  }, []);
+
   return (
     <div>
       <Helmet>
