@@ -5,7 +5,6 @@ import ArticleCard from "@components/ArticleCard";
 function Articles() {
   return (
     <div>
-      <h1 className="text-center text-secondary">My adventure blog</h1>
       <section className="container">
         <div className="row">
           {articles.map((article) => (
