@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from "react";
 import connexion from "@services/connexion";
 
+const articleModel = {
+  id: null,
+  title: "",
+  subtitle: "",
+  resume: "",
+  text: "",
+  src: "",
+  alt: "",
+  tags: [],
+};
+
 function ArticlesAdmin() {
   const [tags, setTags] = useState([]);
-  const [article, setArticle] = useState({
-    id: null,
-    title: "",
-    subtitle: "",
-    resume: "",
-    text: "",
-    src: "",
-    alt: "",
-    tags: [],
-  });
+  const [article, setArticle] = useState(articleModel);
 
   const updateArticle = (name, value) => {
     if (name === "tags") {
@@ -31,15 +33,19 @@ function ArticlesAdmin() {
 
   const manageArticle = async (event) => {
     event.preventDefault();
-    console.info(article);
     const articleData = await connexion.post("/articles", article);
 
     try {
-      console.info("Yep, done");
-      console.info(articleData);
+      setArticle(articleData);
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const deleteArticle = async (event) => {
+    event.preventDefault();
+    await connexion.delete(`/articles/${article.id}`);
+    setArticle(articleModel);
   };
 
   const getTags = async () => {
@@ -168,9 +174,20 @@ function ArticlesAdmin() {
             </button>
           ))}
         </div>
-        <button type="submit" className="btn btn-secondary">
-          Valider
-        </button>
+        {!article.id && (
+          <button type="submit" className="btn btn-secondary mx-2">
+            Valider
+          </button>
+        )}
+        {article.id && (
+          <button
+            type="button"
+            onClick={(e) => deleteArticle(e)}
+            className="btn btn-secondary mx-2"
+          >
+            Supprimer
+          </button>
+        )}
       </form>
     </div>
   );

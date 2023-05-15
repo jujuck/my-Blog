@@ -71,7 +71,7 @@ CREATE TABLE
         text LONGTEXT NOT NULL,
         author VARCHAR(255) NOT NULL,
         image_id INT NOT NULL,
-        CONSTRAINT image_id_FK FOREIGN KEY (image_id) REFERENCES images(id)
+        CONSTRAINT image_id_FK FOREIGN KEY (image_id) REFERENCES images(id) ON DELETE CASCADE
     ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 INSERT INTO

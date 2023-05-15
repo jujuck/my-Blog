@@ -70,7 +70,7 @@ const add = async (req, res) => {
         res
           .location(`/articles/${articleCreated[0].insertId}`)
           .status(201)
-          .json({ id: articleCreated[0].insertId, ...article });
+          .json({ ...article, id: articleCreated[0].insertId });
       }
     }
   } catch (error) {
@@ -79,20 +79,23 @@ const add = async (req, res) => {
   }
 };
 
-const destroy = (req, res) => {
-  models.articles
-    .delete(req.params.id)
-    .then(([result]) => {
-      if (result.affectedRows === 0) {
-        res.sendStatus(404);
-      } else {
+const destroy = async (req, res) => {
+  const articleToTags = await models.articleToTags.delete(req.params.id);
+  try {
+    if (articleToTags[0].affectedRows > 0) {
+      const articleToDelete = await models.articles.delete(req.params.id);
+      if (articleToDelete[0].affectedRows === 1) {
         res.sendStatus(204);
+      } else {
+        res.sendStatus(404);
       }
-    })
-    .catch((err) => {
-      console.error(err);
-      res.sendStatus(500);
-    });
+    } else {
+      res.sendStatus(404);
+    }
+  } catch (error) {
+    console.error(error);
+    res.sendStatus(500);
+  }
 };
 
 module.exports = {

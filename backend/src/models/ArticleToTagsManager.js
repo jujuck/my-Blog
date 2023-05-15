@@ -18,6 +18,13 @@ class ArticleToTagsManager extends AbstractManager {
       [item.title, item.id]
     );
   }
+
+  delete(id) {
+    return this.database.query(
+      `delete from ${this.table} where article_id = ?`,
+      [id]
+    );
+  }
 }
 
 module.exports = ArticleToTagsManager;
