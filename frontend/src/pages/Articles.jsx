@@ -33,7 +33,7 @@ function Articles() {
       <section className="container">
         <div className="row">
           {articles.map((article) => (
-            <ArticleCard article={article} />
+            <ArticleCard article={article} key={article.id} />
           ))}
         </div>
       </section>
