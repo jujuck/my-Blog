@@ -1,6 +1,6 @@
 const AbstractManager = require("./AbstractManager");
 
-class ItemManager extends AbstractManager {
+class ArticleManager extends AbstractManager {
   constructor() {
     super({ table: "article" });
   }
@@ -23,18 +23,19 @@ class ItemManager extends AbstractManager {
     );
   }
 
-  insert(item) {
-    return this.database.query(`insert into ${this.table} (title) values (?)`, [
-      item.title,
-    ]);
+  insert(article, imageId) {
+    return this.database.query(
+      `insert into ${this.table} (title, subtitle, text, resume, author, image_id) values (?, ?, ?, ?, "Author from admin", ?)`,
+      [article.title, article.subtitle, article.text, article.resume, imageId]
+    );
   }
 
-  update(item) {
+  update(article) {
     return this.database.query(
       `update ${this.table} set title = ? where id = ?`,
-      [item.title, item.id]
+      [article.title, article.id]
     );
   }
 }
 
-module.exports = ItemManager;
+module.exports = ArticleManager;

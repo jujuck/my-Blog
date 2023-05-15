@@ -29,9 +29,17 @@ function ArticlesAdmin() {
     }
   };
 
-  const manageArticle = (event) => {
+  const manageArticle = async (event) => {
     event.preventDefault();
     console.info(article);
+    const articleData = await connexion.post("/articles", article);
+
+    try {
+      console.info("Yep, done");
+      console.info(articleData);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const getTags = async () => {

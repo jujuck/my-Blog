@@ -39,6 +39,16 @@ const TagsManager = require("./TagsManager");
 models.tags = new TagsManager();
 models.tags.setDatabase(pool);
 
+const ImagesManager = require("./ImagesManager");
+
+models.images = new ImagesManager();
+models.images.setDatabase(pool);
+
+const ArticleToTagsManager = require("./ArticleToTagsManager");
+
+models.articleToTags = new ArticleToTagsManager();
+models.articleToTags.setDatabase(pool);
+
 // bonus: use a proxy to personalize error message,
 // when asking for a non existing model
 

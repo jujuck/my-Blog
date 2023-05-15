@@ -4,8 +4,22 @@ const getData = (url) => {
     .catch((err) => console.error(err));
 };
 
+const postData = (url, body) => {
+  return fetch(`${import.meta.env.VITE_BACKEND_URL}${url}`, {
+    body: JSON.stringify(body),
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  })
+    .then((res) => res.json())
+    .catch((err) => console.error(err));
+};
+
 const connexion = {
   get: (url) => getData(url),
+  post: (url, body) => postData(url, body),
 };
 
 export default connexion;

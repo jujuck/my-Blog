@@ -1,13 +1,13 @@
 const AbstractManager = require("./AbstractManager");
 
-class ItemManager extends AbstractManager {
+class ArticleToTagsManager extends AbstractManager {
   constructor() {
-    super({ table: "tags" });
+    super({ table: "article_to_tags" });
   }
 
   insert(articleId, tags) {
     return this.database.query(
-      `insert into ${this.table} (article_id, tags_id) values (?)`,
+      `insert into ${this.table} (article_id, tags_id) values ?`,
       [tags.map((tag) => [articleId, tag])]
     );
   }
@@ -20,4 +20,4 @@ class ItemManager extends AbstractManager {
   }
 }
 
-module.exports = ItemManager;
+module.exports = ArticleToTagsManager;
