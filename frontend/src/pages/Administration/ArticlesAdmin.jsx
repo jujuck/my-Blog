@@ -15,6 +15,19 @@ const articleModel = {
 function ArticlesAdmin() {
   const [tags, setTags] = useState([]);
   const [article, setArticle] = useState(articleModel);
+  const [articlesToUpdate, setArticlesToUpdate] = useState([]);
+
+  const getArticleToUpdate = async (event) => {
+    event.preventDefault();
+    const articleData = await connexion.get(`/articles/${event.target.value}`);
+    try {
+      if (articleData) {
+        setArticle(articleData);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const updateArticle = (name, value) => {
     if (name === "tags") {
@@ -37,6 +50,7 @@ function ArticlesAdmin() {
 
     try {
       setArticle(articleData);
+      getArticleToUpdate();
     } catch (error) {
       console.error(error);
     }
@@ -46,6 +60,9 @@ function ArticlesAdmin() {
     event.preventDefault();
     await connexion.delete(`/articles/${article.id}`);
     setArticle(articleModel);
+    setArticlesToUpdate(
+      articlesToUpdate.filter((art) => art.id !== article.id)
+    );
   };
 
   const getTags = async () => {
@@ -59,13 +76,40 @@ function ArticlesAdmin() {
     }
   };
 
+  const getArticles = async () => {
+    const articlesData = await connexion.get("/articles");
+    try {
+      if (articlesData) {
+        setArticlesToUpdate(articlesData);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     getTags();
+    getArticles();
   }, []);
 
   return (
-    <div>
-      <form onSubmit={manageArticle} className="w-100 mx-auto">
+    <div className="container">
+      <div className="row">
+        <label htmlFor="article" className="mx-2 px-4">
+          Modifie un article
+          <select
+            name="article"
+            id="article"
+            onChange={(e) => getArticleToUpdate(e)}
+          >
+            <option value="none">Rafraichir</option>
+            {articlesToUpdate.map((art) => (
+              <option value={art.id}>{art.title}</option>
+            ))}
+          </select>
+        </label>
+      </div>
+      <form onSubmit={manageArticle} className="row mx-auto">
         <div className="form-group">
           <label>
             Titre
