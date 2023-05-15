@@ -1,10 +1,14 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
+import Article from "@pages/Article";
 
 function App() {
   return (
-    <div className="App">
-      <h1 className="text-center text-secondary">My adventure blog</h1>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route to="/" element={<Article />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

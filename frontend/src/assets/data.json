@@ -9,12 +9,7 @@
       "src": "https://upload.wikimedia.org/wikipedia/commons/e/e7/Everest_North_Face_toward_Base_Camp_Tibet_Luca_Galuzzi_2006.jpg",
       "alt": "Lorem Ipsum"
     },
-    "tags": [
-      "hiking",
-      "climbing",
-      "nature",
-      "Asia"
-    ],
+    "tags": ["hiking", "climbing", "nature", "Asia"],
     "author": "Thomas Riviera"
   },
   {
@@ -27,12 +22,7 @@
       "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/K2%2C_Mount_Godwin_Austen%2C_Chogori%2C_Savage_Mountain.jpg/1200px-K2%2C_Mount_Godwin_Austen%2C_Chogori%2C_Savage_Mountain.jpg",
       "alt": "Lorem Ipsum"
     },
-    "tags": [
-      "hiking",
-      "Climbing",
-      "nature",
-      "Asia"
-    ],
+    "tags": ["hiking", "Climbing", "nature", "Asia"],
     "author": "Thomas Riviera"
   },
   {
@@ -45,12 +35,7 @@
       "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Mount_Kilimanjaro_Dec_2009_edit1.jpg/1024px-Mount_Kilimanjaro_Dec_2009_edit1.jpg",
       "alt": "Lorem Ipsum"
     },
-    "tags": [
-      "hiking",
-      "trailing",
-      "nature",
-      "Afrika"
-    ],
+    "tags": ["hiking", "trailing", "nature", "Afrika"],
     "author": "Thomas Riviera"
   },
   {
@@ -63,12 +48,7 @@
       "src": "https://upload.wikimedia.org/wikipedia/commons/0/03/Mont-Blanc_from_Planpraz_station.jpg",
       "alt": "Lorem Ipsum"
     },
-    "tags": [
-      "hiking",
-      "trailing",
-      "nature",
-      "Europe"
-    ],
+    "tags": ["hiking", "trailing", "nature", "Europe"],
     "author": "Thomas Riviera"
   },
   {
@@ -81,11 +61,7 @@
       "src": "https://upload.wikimedia.org/wikipedia/commons/0/03/Villn%C3%B6%C3%9F-Valley1960s.jpg",
       "alt": "Lorem Ipsum"
     },
-    "tags": [
-      "hiking",
-      "nature",
-      "Europe"
-    ],
+    "tags": ["hiking", "nature", "Europe"],
     "author": "Thomas Riviera"
   },
   {
@@ -98,12 +74,7 @@
       "src": "https://upload.wikimedia.org/wikipedia/commons/1/17/Pic_Ossau_Gentau.jpg",
       "alt": "Lorem Ipsum"
     },
-    "tags": [
-      "hiking",
-      "trailing",
-      "nature",
-      "Europe"
-    ],
+    "tags": ["hiking", "trailing", "nature", "Europe"],
     "author": "Thomas Riviera"
   }
 ]
