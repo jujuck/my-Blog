@@ -7,7 +7,7 @@ const articleType = {
   author: PropTypes.string.isRequired,
   text: PropTypes.string,
   resume: PropTypes.string,
-  img: PropTypes.shape({
+  image: PropTypes.shape({
     src: PropTypes.string,
     alt: PropTypes.string,
   }).isRequired,
