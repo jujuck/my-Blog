@@ -1,4 +1,5 @@
 import React from "react";
+import { Helmet } from "react-helmet";
 import articles from "@assets/data.json";
 import { useParams } from "react-router-dom";
 
@@ -8,6 +9,10 @@ function ArticleDesc() {
 
   return (
     <div className="container">
+      <Helmet>
+        <title>{article.title} - Adventure Blog</title>
+        <meta name="description" content={article.resume} />
+      </Helmet>
       <div className="row mx-4 my-4">
         <h2 className="text-center text-secondary">{article.title}</h2>
         <h4 className="text-center">{article.subtitle}</h4>
