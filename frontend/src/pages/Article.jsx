@@ -6,13 +6,13 @@ function Article() {
   return (
     <div>
       <h1 className="text-center text-secondary">My adventure blog</h1>
-      <div className="container">
+      <section className="container">
         <div className="row">
           {articles.map((article) => (
             <ArticleCard article={article} />
           ))}
         </div>
-      </div>
+      </section>
     </div>
   );
 }
