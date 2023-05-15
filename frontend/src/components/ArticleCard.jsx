@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import articleType from "../types/ArticleType";
 
@@ -13,6 +14,14 @@ function ArticleCard({ article }) {
             alt={article.image.alt}
             className="w-100 rounded-1"
           />
+        </div>
+        <div className="">
+          <Link
+            to={`/articles/${article.id}`}
+            className="btn btn-secondary w-100"
+          >
+            En savoir plus
+          </Link>
         </div>
       </div>
     </article>

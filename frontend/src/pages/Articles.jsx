@@ -2,7 +2,7 @@ import React from "react";
 import articles from "@assets/data.json";
 import ArticleCard from "@components/ArticleCard";
 
-function Article() {
+function Articles() {
   return (
     <div>
       <h1 className="text-center text-secondary">My adventure blog</h1>
@@ -17,4 +17,4 @@ function Article() {
   );
 }
 
-export default Article;
+export default Articles;
