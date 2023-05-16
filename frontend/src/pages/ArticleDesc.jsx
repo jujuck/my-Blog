@@ -52,7 +52,7 @@ function ArticleDesc() {
               </h5>
               <p className="col-6 text-center text-secondary">
                 {article.tags.map((tag) => (
-                  <span>{tag} - </span>
+                  <span key={tag.id}>{tag.label} - </span>
                 ))}
               </p>
             </div>

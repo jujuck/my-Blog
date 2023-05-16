@@ -40,12 +40,12 @@ function ArticlesAdmin() {
     }
   };
 
-  const updateArticle = (name, value) => {
+  const handleArticle = (name, value) => {
     if (name === "tags") {
-      if (article.tags.includes(value)) {
+      if (article.tags.some((tag) => tag.id === value.id)) {
         setArticle({
           ...article,
-          tags: article.tags.filter((tag) => tag !== +value),
+          tags: article.tags.filter((tag) => tag.id !== +value.id),
         });
       } else {
         setArticle({ ...article, tags: [...article.tags, value] });
@@ -55,15 +55,30 @@ function ArticlesAdmin() {
     }
   };
 
-  const manageArticle = async (event) => {
-    event.preventDefault();
-    const articleData = await connexion.post("/articles", article);
-
+  const postArticle = async () => {
     try {
+      const articleData = await connexion.post("/articles", article);
       setArticle(articleData);
       getArticles();
     } catch (error) {
       console.error(error);
+    }
+  };
+
+  const updateArticle = async () => {
+    try {
+      await connexion.put(`/articles/${article.id}`, article);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const manageArticle = (event) => {
+    event.preventDefault();
+    if (article.id) {
+      updateArticle();
+    } else {
+      postArticle();
     }
   };
 
@@ -122,7 +137,7 @@ function ArticlesAdmin() {
               value={article.title}
               name="title"
               onChange={(event) =>
-                updateArticle(event.target.name, event.target.value)
+                handleArticle(event.target.name, event.target.value)
               }
             />
           </label>
@@ -139,7 +154,7 @@ function ArticlesAdmin() {
               value={article.subtitle}
               name="subtitle"
               onChange={(event) =>
-                updateArticle(event.target.name, event.target.value)
+                handleArticle(event.target.name, event.target.value)
               }
             />
           </label>
@@ -154,7 +169,7 @@ function ArticlesAdmin() {
               value={article.resume}
               name="resume"
               onChange={(event) =>
-                updateArticle(event.target.name, event.target.value)
+                handleArticle(event.target.name, event.target.value)
               }
             />
           </label>
@@ -169,7 +184,7 @@ function ArticlesAdmin() {
               value={article.text}
               name="text"
               onChange={(event) =>
-                updateArticle(event.target.name, event.target.value)
+                handleArticle(event.target.name, event.target.value)
               }
             />
           </label>
@@ -185,7 +200,7 @@ function ArticlesAdmin() {
               value={article.src}
               name="src"
               onChange={(event) =>
-                updateArticle(event.target.name, event.target.value)
+                handleArticle(event.target.name, event.target.value)
               }
             />
           </label>
@@ -202,7 +217,7 @@ function ArticlesAdmin() {
               value={article.alt}
               name="alt"
               onChange={(event) =>
-                updateArticle(event.target.name, event.target.value)
+                handleArticle(event.target.name, event.target.value)
               }
             />
           </label>
@@ -212,7 +227,7 @@ function ArticlesAdmin() {
             <button
               type="button"
               className="m-2 border p-2 rounded"
-              onClick={() => updateArticle("tags", tag.id)}
+              onClick={() => handleArticle("tags", tag)}
             >
               {tag.label}
             </button>
@@ -237,16 +252,19 @@ function ArticlesAdmin() {
         )}
         {article.id && (
           <div className="row">
+            <button type="submit" className="btn btn-secondary col-3 m-2">
+              Modifier
+            </button>
             <button
               type="button"
               onClick={(e) => deleteArticle(e)}
-              className="btn btn-secondary col-5 m-2"
+              className="btn btn-secondary col-3 m-2"
             >
               Supprimer
             </button>
             <button
               type="button"
-              className="btn btn-secondary col-5 m-2"
+              className="btn btn-secondary col-3 m-2"
               onClick={(e) => {
                 e.preventDefault();
                 setArticle(articleModel);

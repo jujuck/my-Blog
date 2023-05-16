@@ -28,26 +28,22 @@ const read = (req, res) => {
     });
 };
 
-const edit = (req, res) => {
-  const articles = req.body;
+const edit = async (req, res) => {
+  const article = req.body;
 
   // TODO validations (length, format...)
 
-  articles.id = parseInt(req.params.id, 10);
-
-  models.articles
-    .update(articles)
-    .then(([result]) => {
-      if (result.affectedRows === 0) {
-        res.sendStatus(404);
-      } else {
-        res.sendStatus(204);
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-      res.sendStatus(500);
-    });
+  article.id = parseInt(req.params.id, 10);
+  try {
+    await models.images.update(article.src, article.alt, article.id);
+    await models.articles.update(article);
+    await models.articleToTags.delete(article.id);
+    await models.articleToTags.insert(article.id, article.tags);
+    res.sendStatus(204);
+  } catch (error) {
+    console.error(error);
+    res.sendStatus(500);
+  }
 };
 
 const add = async (req, res) => {

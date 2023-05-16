@@ -8,7 +8,7 @@ class ArticleToTagsManager extends AbstractManager {
   insert(articleId, tags) {
     return this.database.query(
       `insert into ${this.table} (article_id, tags_id) values ?`,
-      [tags.map((tag) => [articleId, tag])]
+      [tags.map((tag) => [articleId, tag.id])]
     );
   }
 

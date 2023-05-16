@@ -17,6 +17,19 @@ const postData = (url, body) => {
     .catch((err) => console.error(err));
 };
 
+const updateData = (url, body) => {
+  return fetch(`${import.meta.env.VITE_BACKEND_URL}${url}`, {
+    body: JSON.stringify(body),
+    method: "PUT",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  })
+    .then((res) => res.json())
+    .catch((err) => console.error(err));
+};
+
 const deleteData = (url) => {
   return fetch(`${import.meta.env.VITE_BACKEND_URL}${url}`, {
     method: "DELETE",
@@ -28,6 +41,7 @@ const deleteData = (url) => {
 const connexion = {
   get: (url) => getData(url),
   post: (url, body) => postData(url, body),
+  put: (url, body) => updateData(url, body),
   delete: (url) => deleteData(url),
 };
 

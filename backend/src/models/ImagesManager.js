@@ -12,11 +12,11 @@ class ImagesManager extends AbstractManager {
     );
   }
 
-  update(item) {
-    return this.database.query(
-      `update ${this.table} set title = ? where id = ?`,
-      [item.title, item.id]
-    );
+  update(src, alt, id) {
+    return this.database.query(`update ${this.table} set ? where id = ?`, [
+      { src, alt },
+      id,
+    ]);
   }
 }
 
