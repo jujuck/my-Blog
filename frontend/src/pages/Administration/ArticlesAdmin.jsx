@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import connexion from "@services/connexion";
 
 const articleModel = {
@@ -60,16 +62,20 @@ function ArticlesAdmin() {
       const articleData = await connexion.post("/articles", article);
       setArticle(articleData);
       getArticles();
+      toast.success(`🦄 Article ajouté`);
     } catch (error) {
       console.error(error);
+      toast.error(`Une erreur est survenu`);
     }
   };
 
   const updateArticle = async () => {
     try {
       await connexion.put(`/articles/${article.id}`, article);
+      toast.success(`🦄 Article mis à jour`);
     } catch (error) {
       console.error(error);
+      toast.error(`Une erreur est survenu`);
     }
   };
 
@@ -84,11 +90,17 @@ function ArticlesAdmin() {
 
   const deleteArticle = async (event) => {
     event.preventDefault();
-    await connexion.delete(`/articles/${article.id}`);
-    setArticle(articleModel);
-    setArticlesToUpdate(
-      articlesToUpdate.filter((art) => art.id !== article.id)
-    );
+    try {
+      await connexion.delete(`/articles/${article.id}`);
+      setArticle(articleModel);
+      setArticlesToUpdate(
+        articlesToUpdate.filter((art) => art.id !== article.id)
+      );
+      toast.success(`🦄 Article supprimé`);
+    } catch (error) {
+      console.error(error);
+      toast.error(`Une erreur est survenu`);
+    }
   };
 
   const getTags = async () => {
@@ -119,7 +131,9 @@ function ArticlesAdmin() {
           >
             <option value="none">Rafraichir</option>
             {articlesToUpdate.map((art) => (
-              <option value={art.id}>{art.title}</option>
+              <option key={art.id} value={art.id}>
+                {art.title}
+              </option>
             ))}
           </select>
         </label>
@@ -226,7 +240,12 @@ function ArticlesAdmin() {
           {tags.map((tag) => (
             <button
               type="button"
-              className="m-2 border p-2 rounded"
+              key={tag.id}
+              className={
+                article.tags.some((t) => t.id === tag.id)
+                  ? "m-2 border p-2 rounded bg-secondary text-white"
+                  : "m-2 border p-2 rounded"
+              }
               onClick={() => handleArticle("tags", tag)}
             >
               {tag.label}
@@ -275,6 +294,18 @@ function ArticlesAdmin() {
           </div>
         )}
       </form>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 }
