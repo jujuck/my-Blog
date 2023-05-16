@@ -1,4 +1,5 @@
 const models = require("../models");
+const articleSchema = require("../services/article");
 
 const browse = (req, res) => {
   models.articles
@@ -35,6 +36,10 @@ const edit = async (req, res) => {
 
   article.id = parseInt(req.params.id, 10);
   try {
+    const { error } = articleSchema("optional").validate(article, {
+      abortEarly: false,
+    });
+    if (error) throw new Error(error);
     await models.images.update(article.src, article.alt, article.id);
     await models.articles.update(article);
     await models.articleToTags.delete(article.id);
@@ -49,10 +54,13 @@ const edit = async (req, res) => {
 const add = async (req, res) => {
   const article = req.body;
 
-  // TODO validations (length, format...)
-  const image = await models.images.insert(article.src, article.alt);
-
   try {
+    const { error } = articleSchema("required").validate(article, {
+      abortEarly: false,
+    });
+    if (error) throw new Error(error);
+
+    const image = await models.images.insert(article.src, article.alt);
     if (image[0].affectedRows === 1) {
       const articleCreated = await models.articles.insert(
         article,
