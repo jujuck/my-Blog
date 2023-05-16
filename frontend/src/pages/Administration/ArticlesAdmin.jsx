@@ -29,6 +29,17 @@ function ArticlesAdmin() {
     }
   };
 
+  const getArticles = async () => {
+    const articlesData = await connexion.get("/articles");
+    try {
+      if (articlesData) {
+        setArticlesToUpdate(articlesData);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const updateArticle = (name, value) => {
     if (name === "tags") {
       if (article.tags.includes(value)) {
@@ -50,7 +61,7 @@ function ArticlesAdmin() {
 
     try {
       setArticle(articleData);
-      getArticleToUpdate();
+      getArticles();
     } catch (error) {
       console.error(error);
     }
@@ -70,17 +81,6 @@ function ArticlesAdmin() {
     try {
       if (tagsData) {
         setTags(tagsData);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const getArticles = async () => {
-    const articlesData = await connexion.get("/articles");
-    try {
-      if (articlesData) {
-        setArticlesToUpdate(articlesData);
       }
     } catch (error) {
       console.error(error);
@@ -219,18 +219,42 @@ function ArticlesAdmin() {
           ))}
         </div>
         {!article.id && (
-          <button type="submit" className="btn btn-secondary mx-2">
-            Valider
-          </button>
+          <div className="row">
+            <button type="submit" className="btn btn-secondary col-5 m-2">
+              Valider
+            </button>
+            <button
+              type="button"
+              className="btn btn-secondary col-5 m-2"
+              onClick={(e) => {
+                e.preventDefault();
+                setArticle(articleModel);
+              }}
+            >
+              Annuler
+            </button>
+          </div>
         )}
         {article.id && (
-          <button
-            type="button"
-            onClick={(e) => deleteArticle(e)}
-            className="btn btn-secondary mx-2"
-          >
-            Supprimer
-          </button>
+          <div className="row">
+            <button
+              type="button"
+              onClick={(e) => deleteArticle(e)}
+              className="btn btn-secondary col-5 m-2"
+            >
+              Supprimer
+            </button>
+            <button
+              type="button"
+              className="btn btn-secondary col-5 m-2"
+              onClick={(e) => {
+                e.preventDefault();
+                setArticle(articleModel);
+              }}
+            >
+              Annuler
+            </button>
+          </div>
         )}
       </form>
     </div>
