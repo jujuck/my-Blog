@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import connexion from "@services/connexion";
 import ArticleCard from "@components/ArticleCard";
 

@@ -29,7 +29,7 @@ function ArticleCard({ article }) {
 }
 
 ArticleCard.propTypes = {
-  article: PropTypes.instanceOf(articleType).isRequired,
+  article: PropTypes.shape(articleType).isRequired,
 };
 
 export default ArticleCard;

@@ -4,7 +4,7 @@ const articleType = {
   id: PropTypes.number,
   title: PropTypes.string.isRequired,
   subtitle: PropTypes.string,
-  author: PropTypes.string.isRequired,
+  author: PropTypes.string,
   text: PropTypes.string,
   resume: PropTypes.string,
   image: PropTypes.shape({
