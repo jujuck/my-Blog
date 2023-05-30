@@ -1,10 +1,11 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
-import Articles from "@pages/Articles";
-import ArticleDesc from "@pages/ArticleDesc";
 import Administration from "@pages/Layout/Administration";
 import User from "@pages/Layout/User";
+import Articles from "@pages/Articles";
+import ArticleDesc from "@pages/ArticleDesc";
 import ArticlesAdmin from "@pages/Administration/ArticlesAdmin";
+import Auth from "@pages/Auth";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/" element={<User />}>
           <Route path="" element={<Articles />} />
           <Route path="articles/:id" element={<ArticleDesc />} />
+          <Route path="auth/connexion" element={<Auth />} />
         </Route>
         <Route path="/administration" element={<Administration />}>
           <Route path="articles" element={<ArticlesAdmin />} />
