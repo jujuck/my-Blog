@@ -33,7 +33,8 @@
       {
         "assert": "either"
       }
-    ]
+    ],
+    "react/jsx-no-constructed-context-values": "off"
   },
   "settings": {
     "import/resolver": {

@@ -1,21 +1,28 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import connexion from "@services/connexion";
+import { useCurrentUser } from "../contexts/UserContexts";
 
 function Auth() {
-  const [user, setUser] = useState({
+  const [userToLog, setUserToLog] = useState({
     email: "",
     password: "",
   });
+  const { setUser } = useCurrentUser();
+  const navigate = useNavigate();
 
   const handleUser = (event) => {
-    setUser({ ...user, [event.target.name]: event.target.value });
+    setUserToLog({ ...userToLog, [event.target.name]: event.target.value });
   };
 
   const login = async (event) => {
     event.preventDefault();
     try {
-      const log = await connexion.post("/login", user);
-      console.info(log);
+      const log = await connexion.post("/login", userToLog);
+      setUser(log.msg);
+      setTimeout(() => {
+        navigate("/administration/articles");
+      }, 1000);
     } catch (error) {
       console.error(error);
     }
@@ -28,7 +35,7 @@ function Auth() {
           type="email"
           id="form2Example1"
           name="email"
-          value={user.email}
+          value={userToLog.email}
           onChange={(event) => handleUser(event)}
           className="form-control"
           required
@@ -43,7 +50,7 @@ function Auth() {
         <input
           type="password"
           id="form2Example2"
-          value={user.password}
+          value={userToLog.password}
           onChange={(event) => handleUser(event)}
           name="password"
           className="form-control"
