@@ -49,6 +49,11 @@ const ArticleToTagsManager = require("./ArticleToTagsManager");
 models.articleToTags = new ArticleToTagsManager();
 models.articleToTags.setDatabase(pool);
 
+const UserManager = require("./UserManager");
+
+models.users = new UserManager();
+models.users.setDatabase(pool);
+
 // bonus: use a proxy to personalize error message,
 // when asking for a non existing model
 

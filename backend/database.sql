@@ -10,6 +10,15 @@ DROP TABLE IF EXISTS tags;
 
 DROP TABLE IF EXISTS images;
 
+DROP TABLE IF EXISTS users;
+
+CREATE TABLE
+    users (
+        id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+        email VARCHAR(255) UNIQUE,
+        encrypt_pwd VARCHAR(255)
+    );
+
 CREATE TABLE
     images (
         id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
