@@ -14,6 +14,7 @@ const articleSchema = (status) => {
     src: Joi.string().presence(status),
     alt: Joi.string().presence(status),
     tags: Joi.array().presence(status).items(tagSchema),
+    author: Joi.string().allow(null).optional(),
   });
 };
 

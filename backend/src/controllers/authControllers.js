@@ -1,11 +1,7 @@
 // const models = require("../models");
-const { hashPassword } = require("../services/auth");
+const { hashPassword, checkPassword } = require("../services/auth");
 const models = require("../models");
-
-const user = {
-  email: "test@test.com",
-  password: "WildCodeSchool",
-};
+const { createJwt } = require("../services/jwt");
 
 const signup = async (req, res) => {
   // Encrypté le pmot de passe
@@ -19,11 +15,23 @@ const signup = async (req, res) => {
     });
 };
 
-const login = (req, res) => {
+const login = async (req, res) => {
   // 1ère étape : vérification des données du req.body
+  const [user] = await models.users.findOne(req.body.email);
   // 2ème étape : Vérifier si l'email est bon et si mot de passe correspond
-  if (user.email === req.body.email && user.password === req.body.password) {
-    res.status(200).json({ msg: "Connected" });
+  if (
+    user[0] &&
+    (await checkPassword(user[0].encrypt_pwd, req.body.password))
+  ) {
+    // equivaut à user
+    const token = createJwt({ email: req.body.email, role: "admin" });
+
+    res
+      .status(200)
+      .cookie("blog_token", token, {
+        httpOnly: true,
+      })
+      .json({ msg: "Connected" });
   } else {
     res.status(401).json({ msg: "Wrong credentials" });
   }

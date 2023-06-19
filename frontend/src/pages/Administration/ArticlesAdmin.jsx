@@ -71,8 +71,12 @@ function ArticlesAdmin() {
 
   const updateArticle = async () => {
     try {
-      await connexion.put(`/articles/${article.id}`, article);
-      toast.success(`🦄 Article mis à jour`);
+      const res = await connexion.put(`/articles/${article.id}`, article);
+      if (res.status === 201) {
+        toast.success(`🦄 Article mis à jour`);
+      } else {
+        throw new Error(res.statusText);
+      }
     } catch (error) {
       console.error(error);
       toast.error(`Une erreur est survenu`);
@@ -91,12 +95,16 @@ function ArticlesAdmin() {
   const deleteArticle = async (event) => {
     event.preventDefault();
     try {
-      await connexion.delete(`/articles/${article.id}`);
-      setArticle(articleModel);
-      setArticlesToUpdate(
-        articlesToUpdate.filter((art) => art.id !== article.id)
-      );
-      toast.success(`🦄 Article supprimé`);
+      const res = await connexion.delete(`/articles/${article.id}`);
+      if (res.status === 201) {
+        setArticle(articleModel);
+        setArticlesToUpdate(
+          articlesToUpdate.filter((art) => art.id !== article.id)
+        );
+        toast.success(`🦄 Article supprimé`);
+      } else {
+        throw new Error(res.statusText);
+      }
     } catch (error) {
       console.error(error);
       toast.error(`Une erreur est survenu`);

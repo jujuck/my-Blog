@@ -12,6 +12,10 @@ const hashPassword = (password) => {
   return argon2.hash(password, options);
 };
 
+const checkPassword = (hash, pwd) => {
+  return argon2.verify(hash, pwd);
+};
+
 const authSchema = () => {
   return Joi.object({
     email: Joi.string().email({
@@ -34,4 +38,4 @@ const checkUserData = (req, res, next) => {
   }
 };
 
-module.exports = { checkUserData, hashPassword };
+module.exports = { checkUserData, hashPassword, checkPassword };
