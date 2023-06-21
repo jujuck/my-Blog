@@ -5,7 +5,7 @@ const browse = (req, res) => {
   models.articles
     .findAll()
     .then(([rows]) => {
-      res.send(rows);
+      res.status(200).json(rows);
     })
     .catch((err) => {
       console.error(err);
@@ -74,7 +74,11 @@ const add = async (req, res) => {
         res
           .location(`/articles/${articleCreated[0].insertId}`)
           .status(201)
-          .json({ ...article, id: articleCreated[0].insertId });
+          .json({
+            ...article,
+            id: articleCreated[0].insertId,
+            author: "Author from admin",
+          });
       }
     }
   } catch (error) {
